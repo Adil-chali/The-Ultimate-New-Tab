@@ -1,0 +1,112 @@
+/******************************************
+/* CSS
+/*******************************************/
+
+/* Box Model Hack */
+*{
+  box-sizing: border-box;
+}
+
+/******************************************
+/* LAYOUT
+/*******************************************/
+
+
+
+/******************************************
+/* ADDITIONAL STYLES
+/*******************************************/
+/* Steam-style card */
+/* Reset & Base Styles */
+
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #121212;
+  color: #e0e0e0;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Input & Button */
+input, button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin: 5px 0;
+  margin-bottom: 28px;
+}
+
+input {
+  width: 350px;
+  height: 54px;
+  background: #2a2a2a;
+  color: white;
+}
+label{
+  font-size: 1.6rem;
+}
+button {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+  height: 50px;
+  width: 100px;
+  margin-left: 10px;
+  font-size: 1.2rem;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+/* Game Cards */
+ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.game-card {
+  background: #1a1a2e;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}
+
+.game-card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 15px;
+  margin: 10px 0;
+  font-size: 1.8rem;
+}
+
+.game-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.game-card h3 {
+  margin: 10px 0;
+  font-size: 1.8rem;
+  padding-bottom: 20px;
+}
+
+.game-card h1 {
+  color: #00adee;
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
