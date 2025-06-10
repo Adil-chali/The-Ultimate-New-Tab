@@ -12,17 +12,42 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
+		<!-- new stuff -->
+		<header>
+		</header>	
+		<section class="container">
+			<section class="panel" id="f1">
+				<h2>F1 Schedule</h2>
+				<ul id="race-List"></ul>
+			</section>
+			<section class="panel" id="watch">
+				<div id="clock">00:00:00</div>
+				<div id="pomodoro">
+					<div id="timer">25:00</div>
+					<button id="start-pomo">Start</button>
+					<button id="reset-pomo">Reset</button>
+				</div>
+			</section>
+			<section class="panel" id="todo">
+				<h2>Todo</h2>
+				<input type="text" id="todo-input" placeholder="Add task...">
+				<button id="add-todo">Add</button>
+				<ul id="todo-list"></ul>
+			</section>
+			<section id="clock-pomodoro">
+	
+			</section>
+			<section id="todo-List">
+	
+			</section>
+		</section>
+
+		<!-- old steam checker -->
 		<section id="steam-price-checker">
 			<label for="SearchedGame">Game Name?: </label>
 			<input type="text" id="searchedGame" name="game" />
 			<button  id="btn">Search</button>
-			<ul></ul>
-		</section>
-		<section id="clock-pomodoro">
-
-		</section>
-		<section id="todo-List">
-
+			<ul id="game-list"></ul>
 		</section>
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
