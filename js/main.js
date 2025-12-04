@@ -1,5 +1,7 @@
-// *******************IMPORTENT FIX COMMENTS BEFORE PUSHING THE CODE TO GITHUB*****************************************
-
+document.getElementById("start-pomo").addEventListener("click",startPomodoro);
+document.getElementById("reset-pomo").addEventListener("click",resetPomodoro);
+const pomodoroTimer= document.getElementById("pomo-timer")
+document.getElementById("stop-pomo").addEventListener("click",stopPomodoro);
 
 //this button fired up the function searchDaGame 
 document.getElementById("btn").addEventListener("click",searchDaGame);
@@ -83,8 +85,6 @@ fetch("https://api.jolpi.ca/ergast/f1/2025/races/")
   const raceList = document.getElementById('race-List')
   //this conditional that shows only races remaining in the saison
   const upcomingEvents = data.MRData.RaceTable.Races.filter((x)=>x.date>=getFormattedDateUTC())
-  console.log(upcomingEvents.date);
-  
   //create an li for each Race and give it unique id to each race and add it to the raceList
   upcomingEvents.forEach(race => {
     const li= document.createElement("li")
@@ -101,7 +101,6 @@ fetch("https://api.jolpi.ca/ergast/f1/2025/races/")
 
 
 // Helper function to convert milliseconds to countdown parts(days,minutes,seconds)
-const now = new Date();
 function calculateCountdown(diffTime) {
   const MS_PER_SEC = 1000;
   const MS_PER_MIN = MS_PER_SEC * 60;
@@ -119,6 +118,7 @@ function calculateCountdown(diffTime) {
 
 // Unified function to get all countdowns for main event and sessions
 function getAllCountdowns(event) {
+  const now = new Date()
   // Get main event Date & time
   const mainEventDateTime = new Date(`${event.date}T${event.time}`);
 
@@ -154,7 +154,6 @@ function updateRaceCountDown(event) {
 
   // Build HTML string for all countdowns even already finished seassions
   const countdownHtml = countdowns.map(({type, countdown}) =>{ 
-    console.log(countdown.days===0);
     //conditionary to check if the session is passed or not
    if (countdown.days===0&&countdown.hours===0&&countdown.minutes===0&&countdown.seconds===0) {
    return ` <h4>${type}</h4>
@@ -193,16 +192,50 @@ function getFormattedDateUTC() {
   const date = new Date();
   return date.toISOString().split('T')[0]; // Outputs in YYYY-MM-DD format
 }
-/////////////////////////////////// Da pomodoro//////////////////////////////////
-class TimerHost {
-  constructor() {
-    this.workTime=30 * 5
-    this.shortBreak=30 * 5
-    this.longBreak=30 * 5
-    this.currentTime=30 * 5
-    this.isRunning=false
-    this.isWorkSession=30 * 5
-    this.workTime=30 * 5
+///////////////////////////////////  pomodoro//////////////////////////////////
+const TimerHost={
+    workTime:60*60 ,
+    shortBreak:5 * 60,
+    isRunning:false,
+    intervalId: null
+    //longBreak:30 * 5,
+    //currentTime:30 * 5,
+    //isWorkSession:30 * 5,
+  
+}
+function startPomodoro() {
+  if (!TimerHost.isRunning) {
+    TimerHost.isRunning=true
+  TimerHost.intervalId=  setInterval(()=>{
+      TimerHost.workTime--
+     const calculatedTime= calculateCountdown((TimerHost.workTime)*1000)
+      pomodoroTimer.innerHTML = `
+    ${calculatedTime.minutes}: ${calculatedTime.seconds}
+  `;
+    if (TimerHost.workTime <= 0) {
+        clearInterval(TimerHost.intervalId);
+        TimerHost.intervalId = null;
+        TimerHost.isRunning = false;
+      }
+    },1000)
   }
 }
-// *******************IMPORTENT FIX COMMENTS BEFORE PUSHING THE CODE TO GITHUB****************************************
+function resetPomodoro() {
+   if (TimerHost.intervalId !== null) {
+    clearInterval(TimerHost.intervalId);
+    TimerHost.intervalId = null;
+  }
+
+  TimerHost.isRunning=false
+  TimerHost.workTime=60*60
+  pomodoroTimer.innerHTML = `
+    60:00
+  `;
+}
+function stopPomodoro() {
+  if (TimerHost.intervalId !== null) {
+    clearInterval(TimerHost.intervalId);
+    TimerHost.intervalId = null;
+  }
+TimerHost.isRunning=false
+}
